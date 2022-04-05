@@ -1,0 +1,15 @@
+"""
+setup: should make a puzzle board array containing the starting board with the puzzle piece objects needed,
+while startGame == True:
+do_A_Turn_()
+    -asks player to input a move using ask_For_Move_(), then
+    runs move_Player_() to moves the player based on which key they press, and move_Player will have a couple if statements to test each direction,
+       and will then run a player.move_[Direction]_ function based on which key they pressed
+    
+Then it should display_Board_(), which gets the puzzle_Board array but prints it as a plt.matshow matrix because f a n c y
+
+Player class: Represents the player, has methods such as push_PuzzlePiece_() and
+
+PuzzlePiece class: also has a location attribute [row_num, col_num], and also can be acted upon by the Player object
+
+"""
