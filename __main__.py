@@ -54,14 +54,14 @@ objects_in_Play.add(player);
 
 while (endGame = False):
     #getMove() asks for a move from the user
-    move = getMove();
-    if (validMove(move) == "yes"):
+    move_name = getMove();
+    if (validMove(move_name) == "yes"):
         #changes the player's coordinates, and the piece's coordinates (if needed)
-        moveObjects(move);
+        player.move(move_name);
     else:
         #validMove() checks the objects, the player's new position after they move, and returns the string "yes" if it is a valid move, or returns a warning message to the user.
         #so if the returned value was not "yes", then we'll just print out the error message that was returned instead.
-        print(validMove(move));
+        print(validMove(move_name));
         
         
     
