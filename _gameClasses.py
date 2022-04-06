@@ -1,101 +1,78 @@
 import _setupStuff
 import random
 
-class GameObjectClass:
-    def update_Location_(self):
-        self.location = [self.row_num, self.column_num]
-    def set_Position_(self, row, column):
-        self.row_num = row
-        self.column_num = column
-        self.location = [row, column]
+class GameObject:
+    #the init takes a symbol,
+            #which is a char that will be printed in the grid to show the player's location
+    def __init__(self, map_repr, id_num, x, y):
+        self.map_repr = map_repr
+        self.id = id_num
+        self.x = x
+        self.y = y
+               
+    def setPosition(self, row, column):
+        self.x = column
+        self.y = row
+        
+    #[IN PROGRESS]
+    #should return a "yes" string if a new position is valid, either with a move and then will test a push
+    #otherwise, should return a string containing the issue with the move. ("Out of bounds", "Rock is blocking the way", etc.)
+    def validMove(move_name):
+        new_column = self.column_num;
+        new_row = self.row_num;
+        
+
+    #changes the piece's position
+    def move(self, direction):
+            #NOTE: this function uses West, East, Up, and Down
+            # instead of Left, Right, Up and Down
+            current_row = self.row_num
+            current_column = self.column_num
+            
+            new_column = current_column 
+            new_row = current_row
+
+            if (direction == "UP"):
+                new_row = current_row - 1
+
+            elif (direction == "DOWN"):
+                new_row = self.row_num + 1 #sets the newRow to one row down from the obj's current row
+                
+
+            elif (direction == "LEFT"):
+                new_column = self.column_num - 1
 
 
-    class  PuzzlePieceClass:
-        def __init__(self, color, location = [0, 0]):
-           self.color = color #type: string, such as "blue" or "purple"
-           self.location = location #<- [row_Num, column_num] (both starting from 0)
+            elif (direction == "RIGHT"):
 
-           self.row_num = self.location[0]
-           self.column_num = self.location[1]
+                new_column - self.column_num + 1
+                
+           
 
-           symbol = ""
 
-        #if we use the self (which is the obj itself) and put .color,
-        #it should equal the color var we used to intalize the puzzlePiece obj
+
+    class  Rock:
         def __repr__():
             return self.color
 
     class PlayerClass:
-        def __init__(self, symbol, **spawn_location): #the init takes a symbol,
-            #which is a char that will be printed in the grid to show the player's location
-            print(spawn_location)
-            spawn_location = spawn_location["spawn_location"]
-            self.spawn_location = spawn_location #an Array with the player's starting [row_Num, column_num] in the gird
-            #the location will change,
-            #but when the player is first intalized the player's location is equal to the spawnLocation given
-            #<a few days later> HOWEVER, dont make the mistake I did and put self.location = spawn_location-becauses that will make self.location always spawn location,
-            #and it also WONT create a variable called "location"
-            location = spawn_location
-            self.location = location
-
-            row_num = spawn_location[0]
-            self.row_num = row_num
-
-            column_num = spawn_location[1]
-            self.column_num = column_num
-
-
+  
         def randomly_Set_Location_(self):
             #note that randint includes both the bottom AND upper number, so we need to subtract one from
             #the rows/columns number so the included upper number won't be greater than the possible indexes
-            shortest_row_len = min(_setupStuff.puzzle_Board.get_Columns_())
-            rand_column = random.randint(0,  shortest_row_len - 1  ) #defines that the col number should be in between zero and the least number of columns
-            self.column_num = rand_column
-
+            
+            rows = _setupStuff.puzzle_Board.get_Rows_()
+            shortest_row_len = min(rows)
             rand_row = random.randint(0, len(_setupStuff.puzzle_Board.get_Columns_()) - 1)
             self.row_num = rand_row
+            
+            rand_column = random.randint(0,  shortest_row_len - 1) #defines that the col number should be in between zero and the least number of columns
+            self.column_num = rand_column
+            
+            
 
 
-        def push_PuzzlePiece_(self, direction):
-            #NOTE: this function uses West, East, Up, and Down
-            # instead of Left, Right, Up and Down
-            row_num = self.row_num
-            column_num = self.column_num
-
-            if (direction == "UP"):
-                up_coordinates = [row_num - 1, column_num]
-
-            elif (direction == "DOWN"):
-                new_row = self.row_num + 1 #sets the newRow to one row down from the obj's current row
-                down_coordinates = [new_row, column_num]
-
-            elif (direction == "LEFT"):
-                west_coordinates = [row_num, column_num - 1]
-
-                if(the_Board.map[west_coordinates] == "■"): #checks if there is a puzzlePiece to the left
-                #if there is a square to the left, then we need to move the square
-                    west_pc_coordinates = get_Obj_At_(the_Board.map[west_coordinates])
-                else:
-                    print("there is not a puzzle piece east of you")
-
-            elif (direction == "RIGHT"):
-                east_coordinates = [row_num, column_num + 1]
-
-                if (type(  ) == PuzzlePiece): #checks if the obj at the east sqace is a puzzlePiece obj
-                    east_piece = get_Obj_At_(the_Board.map[east_coordinates])
-
-                    if (east_piece.column_num + 1 == " "): #checks if the eastpiece can be moved east
-                        east_piece.location = east_coordinates
-                    else:
-                        print("Piece cannot be moved east")
-
-                else:
-                     print("Err: There is not a puzzle piece east of you to push")
-
-            else:
-                print("invalid move direction")
-
-
+        
 
         #[ALERT!] these next functions should use an if statement to searche the dictionary,
         #see if there are any objects with the same coordinates as the space they want to move to
