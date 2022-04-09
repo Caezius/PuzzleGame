@@ -17,7 +17,8 @@ class Map:
     
     
 
-    #should return a "yes." string if a new position is valid, either with a move and then will test a push
+    #should return a "yes." string if a new position is valid with a move.
+    #will return a "push." if a push needs to happen. 
     #otherwise, should return a string containing the issue with the move. ("Out of bounds", "Rock is blocking the way", etc.)
     def validMove(self_x, self_y, move_name):
         #determine what space the object is trying to go to using the move name.
