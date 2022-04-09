@@ -95,3 +95,30 @@ class Map:
         else:    
             return "push." #we use "push." instead of "yes." to differentiate between when we need to update the object versus when to update another block
              
+
+              
+              
+              
+              
+              
+class ObjectsHolder:
+    def __init__(self):
+        self.arr = [];
+              
+    def findObjAndSet(obj_x, obj_y, new_x, new_y):
+        for object in self.arr:
+            x_pos = object.x
+            y_pos = object.y
+            
+            #check each object in the array, then see if it has the same x and y as what we're looking for. 
+            if (obj_x == x_pos and obj_y == y_pos):
+              #if it matches, that means this is the object we're looking for and so we should update it's position.
+              object.x = new_x
+              object.y = new_y
+              
+              break; #stop looping through the objects array once we've found the object. May lead to errors if we keep checking and somehow get double
+              
+              
+             
+              
+              
