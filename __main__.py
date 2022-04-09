@@ -31,12 +31,7 @@ while (valid_avatar == False):
 
 player_position = None;
 
-#loop through all coordinates, find which coordinate has the "X", which denotes the player's starting position
-for y in range(selected_level.length):
-    for x in range(selected_level[y]):
-        position = selected_level[y][x];
-        if (position == "X"):
-            player_x_pos, player_y_pos = x, y;
+player_x_pos, player_y_pos = findPlayerPosition(selected_level);
             
 player = Player(sprite = player_avatar, id = player_avatar, x = player_x_pos, y = player_y_pos);
 objects_in_Play.add(player);
