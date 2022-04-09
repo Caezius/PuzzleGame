@@ -17,9 +17,13 @@ class GameObject:
     #[IN PROGRESS]
     #should return a "yes" string if a new position is valid, either with a move and then will test a push
     #otherwise, should return a string containing the issue with the move. ("Out of bounds", "Rock is blocking the way", etc.)
-    def validMove(move_name):
+    def validMove(desired_x, desired_y):
         new_column = self.column_num;
         new_row = self.row_num;
+        
+        #first, check if there is an empty space at the spot-if so, that's an INSTANT valid
+        if (objects
+         
         
 
     #changes the piece's position
