@@ -12,6 +12,8 @@ levels = {
 #character representing the Rock() objects
 rock_repr = "O";
 
+#character representing the empty spaces
+empty_repr = " ";
 
 class Map:
     def __init__(self, level_array, empty_repr):
