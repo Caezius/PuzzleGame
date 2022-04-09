@@ -1,7 +1,4 @@
 #import matplotlib as plt
-import _setupStuff
-from _setupStuff import puzzle_Board as the_Board
-import _gameClasses
 import keyboard
 
 
@@ -20,16 +17,7 @@ def getPlayerPosition(player_repr, level_arr):
 #ya know, maybe instead of assuming Ive got access to a major variable, I should take it as one of the parameters
 def show_Board_(twoDArr):
     print(twoDArr)
-
-def reset_Board_(twoDArr):
-    num_of_rows = len(twoDArr)
-    print(num_of_rows)
-    for row in range(0, num_of_rows):
-        num_of_columns = len(twoDArr[row])
-        print(num_of_columns)
-        for column in range(0, num_of_columns):
-            twoDArr[row][column] = " "
-
+    
 #waits for an arrow  key press, then returns the move name as a string
 def checkForMove(playerObj):
     print("Press an arrow key to move")
@@ -60,7 +48,7 @@ def checkForMove(playerObj):
     return name_of_move
 
 
-def generateObjects(level_arr, object_repr, objects_holder):
+def generateObjects(obj_repr, level_arr, objects_holder):
     assigned_id = 0
     
     for y in range(level_arr.length):
@@ -71,6 +59,7 @@ def generateObjects(level_arr, object_repr, objects_holder):
                 new_rockObj = Rock(id = assigned_id, x=x, y=y, repr = object_repr)
                 objects_holder.append(new_rockObj);
                 assigned_id = assigned_id + 1 #increase the assigned id
+                
                 
 #takes a objects_list and the map_arr, and will first clear the entire board and then add in the objects where they are needed    
 #edits the array, doesn't return a new copy
