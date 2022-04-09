@@ -18,15 +18,6 @@ def getPlayerPosition(player_repr, level_arr):
             
 
 #ya know, maybe instead of assuming Ive got access to a major variable, I should take it as one of the parameters
-def do_A_Turn_(playerObj):
-    show_Board_(the_Board.map)
-
-    check_For_Player_Move_(playerObj)
-    reset_Board_(the_Board.map) #after the player moves, reset the board then-
-    add_Objects(the_Board.map, _setupStuff.objs_In_Play) #add the new objects
-
-    show_Board_(the_Board.map)
-
 def show_Board_(twoDArr):
     print(twoDArr)
 
@@ -39,30 +30,35 @@ def reset_Board_(twoDArr):
         for column in range(0, num_of_columns):
             twoDArr[row][column] = " "
 
-
-def check_For_Player_Move_(playerObj):
+#waits for an arrow  key press, then returns the move name as a string
+def checkFor(playerObj):
     print("Press an arrow key to move")
 
     move_Pressed = False #var we make to see if the player has made a move, turns true when the player presses the right arrow
-    while move_Pressed == False :
+    name_of_move = None; #the name we return
+    
+    while move_Pressed == False:
         if(keyboard.is_pressed("up")):
-            playerObj.p_Move_Up_
+            name_of_move = "UP"
             move_Pressed = True
+            
         elif(keyboard.is_pressed("down")):
-            playerObj.p_Move_Down_
+            name_of_move = "DOWN"
             move_Pressed = True
+            
         elif(keyboard.is_pressed("left")):
-            playerObj.p_Move_Left_
+            name_of_move = "LEFT"
             move_Pressed = True
+            
         elif(keyboard.is_pressed("right")):
-            playerObj.p_Move_Right_
+            name_of_move = "RIGHT"
             move_Pressed = True
+            
         else:
             continue
+            
+    return name_of_move
 
-#Note to self: add try and except catches if the obj doesnt have the colNum or rowNum attributes
-#also, these functions will act on objects of the PuzzlePiece class, (with player piece having the go_Direction method)
-#and all depend on the obj to have the current_location attribute
 
 #loops through the objects that we know are in play, and updates each of their location attributes
 def update_Objects_():
@@ -89,63 +85,3 @@ def generate_Random_Pos_(twoD_Array):
 
     return [rand_row, rand_column]
 
-
-#all these following functions are the ones that modify either the row_num or col_num
-
-def move_Piece_(puzzlePieceObj, direction):
-    if (direction == "up"):
-        move_Up_(puzzlePieceObj)
-    elif (direction == "down"):
-        move_Down_(puzzlePieceObj)
-    elif (direction == "left"):
-        move_Left_(puzzlePieceObj);
-    elif (direction == "right"):
-        move_Right_(puzzlePieceObj)
-    else:
-        print("oop, move_Piece didnt get a direction, somethings not allright mate")
-
-def move_Up_(puzzlePieceObj):
-    up_row = puzzlePieceObj.row_num - 1
-    if(up_row >= 0):
-        puzzlePieceObj.row_num = up_row
-
-def move_Down_(gameObj):
-    down_row = gameObj.row_num + 1
-    if (down_row < len(_setupStuff.puzzle_Board)): #checks if moving down would still be within the rows
-        gameObj.row_num = down_row
-
-def move_Left_(gameObj):
-    west_column = obj.column_num - 1
-    if (west_column >= 0): #checks if the westward column would greater than
-        obj.col_num = west_column
-
-def move_Right_(gameObj):
-    east_column = obj.column_num + 1
-    current_row = obj.row_num
-
-    if (east_column < len(the_Board.map[current_row]) ):
-        #checks if the east column is still in the range of the entire row
-        #we dont want to move out beyond the row's range, so this if statement will prevent that
-        #(a row with 5 spaces only has 0 up to 4), a row of 6, 0-5, a row of 2, 0-1, and so on
-        if (f"{current_row}, {east_column}" not in _setupStuff.puzzle_Board.keys() ):
-            obj.column_num = east_column
-        else:
-            print("there is an object where you wish to go")
-
-
-def get_Obj_At_(coordinates_arr):
-    """This function takes an array with two values,
-    [rowNumber, columnNumber] and returns a pointer to the object at the
-    Map[rowNumber][colNumber]"""
-
-    row = coordinates_arr[0]
-    column = coordinates_arr[1]
-    objKey = f"{row}, {column}"
-    if (objKey in _setupStuff.objs_In_Play.keys()):
-        obj = _setupStuff.objs_In_Play[objKey]
-        return obj
-    else:
-        print("There is no object at the given coordinates")
-        return None
-    #objPointer = &Map[row][column]
-    #return objPointer #uh, so newsflash-python...isnt a pointer language.
