@@ -83,7 +83,7 @@ class Map:
             return "no. There is another block behind your immediate block, so you can't push that block.";
             
         else:    
-            return "yes."
+            return "push." #we use "push." instead of "yes." to differentiate between when we need to update the object versus when to update another block
               
         
            
