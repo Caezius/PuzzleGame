@@ -4,6 +4,19 @@ from _setupStuff import puzzle_Board as the_Board
 import _gameClasses
 import keyboard
 
+
+def getPlayerPosition(player_repr, level_arr):
+    #loop through all coordinates, find which coordinate has the "X", which denotes the player's starting position
+    for y in range(level_arr.length):
+        
+        for x in range(level_arr[y].length):
+            
+            space = level_arr[y][x];
+            
+            if (space == player_repr):
+                return [x, y]
+            
+
 #ya know, maybe instead of assuming Ive got access to a major variable, I should take it as one of the parameters
 def do_A_Turn_(playerObj):
     show_Board_(the_Board.map)
