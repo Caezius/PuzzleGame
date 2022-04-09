@@ -85,43 +85,4 @@ class Map:
             
         else:    
             return "push." #we use "push." instead of "yes." to differentiate between when we need to update the object versus when to update another block
-              
-        
-           
-        
-        
-    
-        
-         
-
-global puzzle_Board
-puzzle_Board = Map ([
- #an array representing all the spaces of the grid, will be edited by nearly every Class, method_, or function_
-    [" ", " ", " "],
-    [" ", " ", " "],
-    [" ", " ", " "]
-])
-
-#<a few days later> *Realizes* Its probably a better idea to put the most important variables in the main file,
-#because if each time you use something its an instance from an imported file,
-#different calls could be editing different variables in the systems memory, as each time the import _module.object will just give a new copy of the object
-#so Its better to just have your variable defined in the main, so it will always be kept track of and accessible to all the functions you use in that main
-
-#this function returns the number of columns in each row of puzzle_Board, in a 1D array
-
-
-#maybe we should have a dictionary containing all of the pieces, with the location as their key
-#"row_num, col_num": PuzzlePiece("Some colour")
-#and then we can just go through each item, get the value it holds, and split its key so we know where to put that value in the array
-
-#a dictionary containing every obj added to the grid,
-#will get added to for new players, deleted from for cleared pieces,
-#and should get all items compleyely deleted (reset_Board_()) when we reset the board for a new game/round
-objs_In_Play = {
-}
-
-display_list = [
-""" [(R, G, B), (R, G, B)],
-    [(R, G, B), (R, G, B)],
-    [(R, G, B), (R, G, B)] """
-] #holds RBG values that will get displayed
+             
