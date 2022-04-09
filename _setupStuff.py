@@ -7,15 +7,7 @@ class Map:
     def __repr__(self):
         return str(self.map)
 
-    def get_Columns_(self):
-        cols_in_each_row = []
-        row_index = 0
-        for row in self.map:
-            cols_in_each_row.append(len(row))
-        return cols_in_each_row
 
-    
-    
 
     #should return a "yes." string if a new position is valid with a move.
     #will return a "push." if a push needs to happen. 
