@@ -1,3 +1,18 @@
+level_1 = [
+    [" ", " ", "W"],
+    ["O", "O", " "],
+    ["X", "O", " "]
+]
+
+levels = {
+    "1": level_1
+    
+}
+
+#character representing the Rock() objects
+rock_repr = "O";
+
+
 class Map:
     def __init__(self, level_array, empty_repr):
         self.map = level_array
