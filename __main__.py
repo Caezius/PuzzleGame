@@ -1,17 +1,6 @@
+from _setupStuff import levels, rock_repr, Map
+
 print("Welcome to the Puzzle Game.");
-level_1 = [
-    [" ", " ", "W"],
-    ["O", "O", " "],
-    ["X", "O", " "]
-]
-
-levels = {
-    "1": level_1
-    
-}
-
-#character representing the Rock() objects
-rock_repr = "O";
 
 #get a level number from the user
 level_num = input("Please enter a level number: ");
