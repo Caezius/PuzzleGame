@@ -1,59 +1,72 @@
-from _setupStuff import levels, rock_repr, empty_repr, Map
+from _setupStuff import levels, rock_repr, empty_repr, player_repr, Map, ObjectsHolder
+
+from _gameClasses import Player, Rock
+
+from _functions import generateObjects, objectsToMap, askForAvatar, findPlayerPosition, getMove
+
 
 print("Welcome to the Puzzle Game.");
 
 
+#get levels and create the map object and the Objects_in_play object ⬇️
+
 #get a level number from the user
 level_num = input("Please enter a level number: ");
 
-#get the level itself using the entered level_num
+#get the level itself using the entered level_num (level_num is a string)
 selected_level = levels[level_num];
 
 #create the Puzzle board, which is a map object so we can run methods on it to search itself.
 Puzzle_board = Map(selected_level, empty_repr);
 
-array_of_objects = generateObjects(Puzzle_board.map);
-Objects_in_play = ObjectHolder(array_of_objects)
+#create an array of objects, then assign that array to an ObjectsHolder object so we can run methods on that array.
+array_of_objects = generateObjects(rock_repr, Puzzle_board.map, Rock);
+Objects_in_play = ObjectsHolder()
+Objects_in_play.arr = array_of_objects
 
+
+
+
+#get the character's avatar ⬇️
 
 print("please enter a letter or one character (Ex: '%' or '+') to represent your player.");
 
-#boolean value to check if the user's avatar is legit (as in, a single character that is not a whitespace and is not the same as the rock_repr string.
-valid_avatar = False; 
+player_avatar = askForAvatar(empty_repr, rock_repr);
 
-#while loop to get a valid avatar string from the user
-while (valid_avatar == False):
-    
-    entered_string = input("please input a single character: ");
+player_x_pos, player_y_pos = findPlayerPosition(player_repr, selected_level);
 
-    for letter in entered_string:
-        if ( (letter != " ") and (letter != rock_repr) ): #If statement is to avoid making the player look like an empty space (" ") or the representation for a Rock object ("O")
-            player_avatar = entered_string[0]; #set the player's avatar to that character.
-            valid_avatar = True; #breaks the outer while loop
-            break; #stops looking for valid characters in the string.
-    
-    #if the avatar is still not valid, print a warning message.
-    if (valid_avatar == False):
-        print("Please re-enter a single, non-whitespace character-or a string that does not start with whitespace.");
-        
+player = Player(sprite = player_avatar, id_num = player_avatar, x = player_x_pos, y = player_y_pos);
 
-player_position = None;
+#add the player to the Objects_in_play array
+Objects_in_play.arr.append(player);
 
-player_x_pos, player_y_pos = findPlayerPosition(selected_level);
-            
-player = Player(sprite = player_avatar, id = player_avatar, x = player_x_pos, y = player_y_pos);
-objects_in_Play.add(player);
-
-while (endGame = False):
+time = 0;
+timeout = 60;
+#note: replace "time" and "timeout" counter with "endGame" boolean variable
+while (time < timeout):
     #getMove() asks for a move from the user, ni the form of a key press
     move_name = getMove();
-    
-    if (Puzzle_board.validMove(move_name) == "yes." or Puzzle_board.validMove(move_name) == "push."):
+
+    player_index = Objects_in_play.getIndexOfObj(obj_id = player_avatar)
+    player_x = Objects_in_play.arr[player_index].x;
+    player_y = Objects_in_play.arr[player_index].y
+
+    move_message = Puzzle_board.validMove(player_x, player_y, move_name)
+
+    if (move_message == "yes." or move_message == "push."):
+        player_indx = Objects_in_play.getIndexOfObj(player_avatar)
         #changes the player's coordinates, and the piece's coordinates (if needed)
-        player.move(move_name, Puzzle_board, Objects_in_play);
-        
+        Objects_in_play.arr[player_indx].move(move_name, Puzzle_board, Objects_in_play);
+
     else:
         #validMove() checks the objects, the player's new position after they move, and returns the string "yes" if it is a valid move, or returns a warning message to the user.
         #so if the returned value was not "yes", then we'll just print out the error message that was returned instead.
-        print(validMove(move_name));
-        
+        print(move_message);
+
+    new_map = objectsToMap(Objects_in_play.arr, Puzzle_board.map, empty_repr, rock_repr)
+    #set the Puzzle_board.map to the updated map
+    Puzzle_board.map = new_map
+
+    #print the puzzle board each turn
+    print(Puzzle_board)
+    time += 1
