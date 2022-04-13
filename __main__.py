@@ -2,7 +2,11 @@ from _setupStuff import levels, rock_repr, empty_repr, player_repr, Map, Objects
 
 from _gameClasses import Player, Rock
 
-from _functions import generateObjects, objectsToMap, askForAvatar, findPlayerPosition, getMove
+from _functions import generateObjects, objectsToMap, askForAvatar, findPlayerPosition, getMove, showBoard
+
+import time
+#move = getMove()
+#print(move);
 
 
 print("Welcome to the Puzzle Game.");
@@ -25,8 +29,6 @@ Objects_in_play = ObjectsHolder()
 Objects_in_play.arr = array_of_objects
 
 
-
-
 #get the character's avatar ⬇️
 
 print("please enter a letter or one character (Ex: '%' or '+') to represent your player.");
@@ -40,10 +42,46 @@ player = Player(sprite = player_avatar, id_num = player_avatar, x = player_x_pos
 #add the player to the Objects_in_play array
 Objects_in_play.arr.append(player);
 
-time = 0;
-timeout = 60;
+new_map = objectsToMap(Objects_in_play.arr, Puzzle_board.map, empty_repr)
+#set the Puzzle_board.map to the updated map
+Puzzle_board.map = new_map
+
+
+time_counter = 0;
+timeout = 6;
 #note: replace "time" and "timeout" counter with "endGame" boolean variable
-while (time < timeout):
+while (time_counter < timeout):
+
+    #print the puzzle board at the START of each turn
+    showBoard(Puzzle_board.map)
+
+    #getMove() asks for a move from the user, ni the form of a key press
+    move_name = getMove();
+
+    player_index = Objects_in_play.getIndexOfObj(obj_id = player_avatar)
+    player_x = Objects_in_play.arr[player_index].x;
+    player_y = Objects_in_play.arr[player_index].y
+
+    move_message = Puzzle_board.validMove(player_x, player_y, move_name)
+    print(move_message)
+
+    if (move_message == "yes." or move_message == "push."):
+        player_indx = Objects_in_play.getIndexOfObj(player_avatar)
+        #changes the player's coordinates, and the piece's coordinates (if needed)
+        Objects_in_play.arr[player_indx].move(move_name, Puzzle_board, Objects_in_play);
+
+    else:
+        #validMove() checks the objects, the player's new position after they move, and returns the string "yes" if it is a valid move, or returns a warning message to the user.
+        #so if the returned value was not "yes", then we'll just print out the error message that was returned instead.
+        print(move_message);
+
+    new_map = objectsToMap(Objects_in_play.arr, Puzzle_board.map, empty_repr)
+    #set the Puzzle_board.map to the updated map
+    Puzzle_board.map = new_map
+
+    time_counter = time_counter + 1;
+    time.sleep(2)
+
     #getMove() asks for a move from the user, ni the form of a key press
     move_name = getMove();
 
